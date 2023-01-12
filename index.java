@@ -29,14 +29,8 @@ class index {
         for(int item = 0;item < progress.length;item++){
             log(progress[item]);
         }
-        boolean con = true;
-        while(con){
-            boolean cn = true;
-            for(int i = 0;i < progress.length;i++){
-                if(progress[i] == "_"){
-                    cn = false;
-                }
-            }
+        while (Arrays.asList(progress).contains("_")) {
+            // not done
         }
         sc.close();
     }
