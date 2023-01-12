@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
 
 class index {
     public static <T> T choice(T[] arr) {
@@ -25,22 +26,26 @@ class index {
         Scanner sc = new Scanner(System.in);
         log("Press enter to start");
         sc.nextLine();
-        clear();
-        for(int item = 0;item < progress.length;item++){
-            log(progress[item]);
-        }
+        String[] word = new String[progress.length];
         while (Arrays.asList(progress).contains("_")) {
-            inp = sc.nextLine();
-            String word = "";
-            for(int y = 0;y < progress.length;y++){
-                word += progress[y]
+            for(int item = 0;item < progress.length;item++){
+                log(progress[item]);
             }
-            if(inp.toUpperCase() == word){
-                for(int z;z < progress.length;z++){
-                    progress[z] = rdm[z];
+            log("\n" + rdm);
+            log("\n");
+            String inp = sc.nextLine();
+            for(int y = 0;y < progress.length;y++){
+                word[y] = rdm.substring(y, y+1);
+            }
+            if(inp.toUpperCase().equals(rdm)){
+                for(int z = 0;z < progress.length;z++){
+                    progress[z] = word[z];
                 }
+            }else{
+                // code here
             }
         }
+
         sc.close();
     }
 }
