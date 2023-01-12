@@ -28,6 +28,7 @@ class index {
         sc.nextLine();
         String[] word = new String[progress.length];
         while (Arrays.asList(progress).contains("_")) {
+            clear();
             for(int item = 0;item < progress.length;item++){
                 log(progress[item]);
             }
@@ -42,7 +43,16 @@ class index {
                     progress[z] = word[z];
                 }
             }else{
-                // code here
+                if(Arrays.asList(word).contains(inp.substring(0,1))){
+                    for(int x = 0;x < word.length;x++){
+                        if(word[x].equals(inp.toUpperCase())){
+                            progress[x] = word[x];
+                        }
+                    }
+                }
+            }
+            if(progress == word){
+                log("\nDONE!\n");
             }
         }
 
