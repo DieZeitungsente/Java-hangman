@@ -19,7 +19,7 @@ class index {
         String[] words = {    "ALGORITHM",    "BINARY",    "CACHE",    "CODE",    "COMPILER",    "CONDITIONAL",    "DEBUGGING",    "DECLARATION",    "ENCRYPTION",    "EXCEPTION",    "FUNCTION",    "HASH",    "INTEGER",    "INTERPRETER",    "ITERATION",    "KEYWORD",    "LOOP",    "METHOD",    "OBJECT",    "OPERATOR",    "PARAMETER",    "POINTER",    "RECURSION",    "REFERENCE",    "REGEX",    "SCRIPT",    "SORTING",    "STRING",    "SYNTAX",    "THREAD",    "TYPE",    "VARIABLE",    "VIRTUAL",    "ABSTRACT",    "BOOLEAN",    "BREAK",    "CLASS",    "CONSTANT",    "DATA",    "DYNAMIC",    "ENCAPSULATION",    "EVENT",    "FINALLY",    "GARBAGE",    "HANDLER",    "INHERITANCE",    "INTERFACE",    "LAMBDA",    "LIBRARY",    "MESSAGE",    "NAMESPACE",    "NULL",    "OVERRIDE",    "PRIVATE",    "PROTECTED",    "PUBLIC",    "QUEUE",    "RECORD",    "REENTRANT",    "RESOURCE",    "RETURN",    "STACK",    "STATIC",    "STRUCTURE",    "SWITCH",    "TEMPLATE",    "TRY",    "TUPLE",    "TYPE",    "UNION",    "VALUE",    "VECTOR",    "VOID",    "VOLATILE",    "WHILE",    "YIELD",    "ARRAY",    "BLOCK",    "BYTE",    "CHAR",    "CONTEXT",    "DELEGATE",    "DOUBLE",    "ENUM",    "FLOAT",    "GOTO",    "INLINE",    "LONG",    "POOL",    "SHORT",    "SINGLE",    "STREAM",    "SYNC",    "TASK",    "TRACE",    "TYPE",    "UNICODE",    "USHORT",    "UTF8",    "VOID"};
         String rdm = choice(words);
         String[] progress = new String[rdm.length()];
-        String[] invalid = new String[10];
+        String[] invalid = { "", "", "", "", "", "", "", "", "", ""};
         for (int x = 0;x < rdm.length();x++){
             progress[x] = "_";
         }
@@ -27,12 +27,18 @@ class index {
         log("Press enter to start");
         sc.nextLine();
         String[] word = new String[progress.length];
-        while (Arrays.asList(progress).contains("_")) {
+        boolean lost = false;
+        while (Arrays.asList(progress).contains("_") && !(lost)) {
             clear();
+            for(int x = 0;x < invalid.length;x++){
+                if(!(invalid[x] == "")){
+                    log(invalid[x]);
+                }
+            }
+            log("\n - \n");
             for(int item = 0;item < progress.length;item++){
                 log(progress[item]);
             }
-            log("\n" + rdm);
             log("\n");
             String inp = sc.nextLine();
             for(int y = 0;y < progress.length;y++){
@@ -49,13 +55,33 @@ class index {
                             progress[x] = word[x];
                         }
                     }
+                }else if(!(Arrays.asList(invalid).contains(inp.substring(0,1).toUpperCase()))){
+                    String[] old = invalid;
+                    for(int x = 0;x < invalid.length;x++){
+                        if(invalid[x].equals("")){
+                            invalid[x] = inp.substring(0,1).toUpperCase();
+                            break;
+                        }
+                    }
+                    if(old == invalid && !(Arrays.asList(invalid).contains(""))){
+                        lost = true;
+                    }
                 }
             }
-            if(progress == word){
-                log("\nDONE!\n");
-            }
         }
-
+        
+        if(lost){
+        log("\n\n\nYou lost! the word was " + rdm.toLowerCase() + "\n");
+        }else{
+            clear();
+            for(int x = 0;x < invalid.length;x++){
+                if(!(invalid[x] == "")){
+                    log(invalid[x]);
+                }
+            }
+            log("\n - \n" + rdm + "\n");
+            log("\n\n\nYou win!\n");
+        }
         sc.close();
     }
 }
