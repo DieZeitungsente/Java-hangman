@@ -43,7 +43,7 @@ class index {
                     progress[z] = word[z];
                 }
             }else{
-                if(Arrays.asList(word).contains(inp.substring(0,1))){
+                if(Arrays.asList(word).contains(inp.substring(0,1).toUpperCase())){
                     for(int x = 0;x < word.length;x++){
                         if(word[x].equals(inp.toUpperCase())){
                             progress[x] = word[x];
