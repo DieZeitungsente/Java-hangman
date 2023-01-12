@@ -30,7 +30,16 @@ class index {
             log(progress[item]);
         }
         while (Arrays.asList(progress).contains("_")) {
-            // not done
+            inp = sc.nextLine();
+            String word = "";
+            for(int y = 0;y < progress.length;y++){
+                word += progress[y]
+            }
+            if(inp.toUpperCase() == word){
+                for(int z;z < progress.length;z++){
+                    progress[z] = rdm[z];
+                }
+            }
         }
         sc.close();
     }
