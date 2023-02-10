@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Arrays;
+import begudb.cls;
+import begudb.system;
 
 class index {
     public static <T> T choice(T[] arr) {
@@ -16,7 +18,8 @@ class index {
         System.out.print(msg);
     }
     public static void main(String[] args) throws InterruptedException, IOException{
-        String[] words = {    "ALGORITHM",    "BINARY",    "CACHE",    "CODE",    "COMPILER",    "CONDITIONAL",    "DEBUGGING",    "DECLARATION",    "ENCRYPTION",    "EXCEPTION",    "FUNCTION",    "HASH",    "INTEGER",    "INTERPRETER",    "ITERATION",    "KEYWORD",    "LOOP",    "METHOD",    "OBJECT",    "OPERATOR",    "PARAMETER",    "POINTER",    "RECURSION",    "REFERENCE",    "REGEX",    "SCRIPT",    "SORTING",    "STRING",    "SYNTAX",    "THREAD",    "TYPE",    "VARIABLE",    "VIRTUAL",    "ABSTRACT",    "BOOLEAN",    "BREAK",    "CLASS",    "CONSTANT",    "DATA",    "DYNAMIC",    "ENCAPSULATION",    "EVENT",    "FINALLY",    "GARBAGE",    "HANDLER",    "INHERITANCE",    "INTERFACE",    "LAMBDA",    "LIBRARY",    "MESSAGE",    "NAMESPACE",    "NULL",    "OVERRIDE",    "PRIVATE",    "PROTECTED",    "PUBLIC",    "QUEUE",    "RECORD",    "REENTRANT",    "RESOURCE",    "RETURN",    "STACK",    "STATIC",    "STRUCTURE",    "SWITCH",    "TEMPLATE",    "TRY",    "TUPLE",    "TYPE",    "UNION",    "VALUE",    "VECTOR",    "VOID",    "VOLATILE",    "WHILE",    "YIELD",    "ARRAY",    "BLOCK",    "BYTE",    "CHAR",    "CONTEXT",    "DELEGATE",    "DOUBLE",    "ENUM",    "FLOAT",    "GOTO",    "INLINE",    "LONG",    "POOL",    "SHORT",    "SINGLE",    "STREAM",    "SYNC",    "TASK",    "TRACE",    "TYPE",    "UNICODE",    "USHORT",    "UTF8",    "VOID"};
+        // String[] words = {    "ALGORITHM",    "BINARY",    "CACHE",    "CODE",    "COMPILER",    "CONDITIONAL",    "DEBUGGING",    "DECLARATION",    "ENCRYPTION",    "EXCEPTION",    "FUNCTION",    "HASH",    "INTEGER",    "INTERPRETER",    "ITERATION",    "KEYWORD",    "LOOP",    "METHOD",    "OBJECT",    "OPERATOR",    "PARAMETER",    "POINTER",    "RECURSION",    "REFERENCE",    "REGEX",    "SCRIPT",    "SORTING",    "STRING",    "SYNTAX",    "THREAD",    "TYPE",    "VARIABLE",    "VIRTUAL",    "ABSTRACT",    "BOOLEAN",    "BREAK",    "CLASS",    "CONSTANT",    "DATA",    "DYNAMIC",    "ENCAPSULATION",    "EVENT",    "FINALLY",    "GARBAGE",    "HANDLER",    "INHERITANCE",    "INTERFACE",    "LAMBDA",    "LIBRARY",    "MESSAGE",    "NAMESPACE",    "NULL",    "OVERRIDE",    "PRIVATE",    "PROTECTED",    "PUBLIC",    "QUEUE",    "RECORD",    "REENTRANT",    "RESOURCE",    "RETURN",    "STACK",    "STATIC",    "STRUCTURE",    "SWITCH",    "TEMPLATE",    "TRY",    "TUPLE",    "TYPE",    "UNION",    "VALUE",    "VECTOR",    "VOID",    "VOLATILE",    "WHILE",    "YIELD",    "ARRAY",    "BLOCK",    "BYTE",    "CHAR",    "CONTEXT",    "DELEGATE",    "DOUBLE",    "ENUM",    "FLOAT",    "GOTO",    "INLINE",    "LONG",    "POOL",    "SHORT",    "SINGLE",    "STREAM",    "SYNC",    "TASK",    "TRACE",    "TYPE",    "UNICODE",    "USHORT",    "UTF8",    "VOID"};
+        String[] words = { "EXAMPLEWORD" };
         String rdm = choice(words);
         String[] progress = new String[rdm.length()];
         String[] invalid = { "", "", "", "", "", "", "", "", "", ""};
@@ -28,18 +31,18 @@ class index {
         sc.nextLine();
         String[] word = new String[progress.length];
         boolean lost = false;
+        int hints = 3;
+        int most = hints;
         while (Arrays.asList(progress).contains("_") && !(lost)) {
             clear();
             for(int x = 0;x < invalid.length;x++){
                 if(!(invalid[x] == "")){
-                    log(invalid[x]);
+                    log(cls.red + invalid[x] + cls.reset);
                 }
             }
+            system.ln("\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
             log("\n - \n");
-            for(int item = 0;item < progress.length;item++){
-                log(progress[item]);
-            }
-            log("\n");
+            system.printArrayln(progress);
             String inp = sc.nextLine();
             for(int y = 0;y < progress.length;y++){
                 word[y] = rdm.substring(y, y+1);
@@ -49,7 +52,20 @@ class index {
                     progress[z] = word[z];
                 }
             }else{
-                if(Arrays.asList(word).contains(inp.substring(0,1).toUpperCase())){
+                if(inp.toLowerCase().equals("hint")){
+                    if(hints >= 1){
+                        int HintIndex = 0;
+                        hints--;
+                        while(progress[HintIndex] != "_"){
+                            HintIndex++;
+                        }
+                        for(int item = 0;item < word.length;item++){
+                            if(word[item].equals(word[HintIndex])){
+                                progress[item] = word[HintIndex];
+                            }
+                        }
+                    }
+                }else if(Arrays.asList(word).contains(inp.substring(0,1).toUpperCase())){
                     for(int x = 0;x < word.length;x++){
                         if(word[x].equals(inp.toUpperCase())){
                             progress[x] = word[x];
