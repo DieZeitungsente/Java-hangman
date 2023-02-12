@@ -30,18 +30,27 @@ class index {
         sc.nextLine();
         String[] word = new String[progress.length];
         boolean lost = false;
-        int hints = 3;
+        int hints = word.length / 3;
+        hints = Math.round(hints);
         int most = hints;
+        int failed = 0;
         while (Arrays.asList(progress).contains("_") && !(lost)) {
             clear();
+            failed = 0;
             for(int x = 0;x < invalid.length;x++){
                 if(!(invalid[x] == "")){
                     log(cls.red + invalid[x] + cls.reset);
+                    failed++;
                 }
             }
-            system.ln("\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
+            if(failed == 9){
+                system.ln(cls.red + " - " + (10 - failed) + " try left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
+            } else{
+                system.ln(cls.red + " - " + (10 - failed) + " tries left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
+            }
             log("\n - \n");
-            system.printArrayln(progress);
+            system.printArray(progress);
+            system.ln(" - " + progress.length + " Characters");
             String inp = sc.nextLine();
             for(int y = 0;y < progress.length;y++){
                 word[y] = rdm.substring(y, y+1);
@@ -51,7 +60,7 @@ class index {
                     progress[z] = word[z];
                 }
             }else{
-                if(inp.toLowerCase().equals("hint")){
+                if(inp.toLowerCase().equals("hint")){  // hints
                     if(hints >= 1){
                         int HintIndex = 0;
                         hints--;
@@ -64,13 +73,13 @@ class index {
                             }
                         }
                     }
-                }else if(Arrays.asList(word).contains(inp.substring(0,1).toUpperCase())){
+                }else if(Arrays.asList(word).contains(inp.substring(0,1).toUpperCase())){  // Checking if the first letter is RIGHT
                     for(int x = 0;x < word.length;x++){
                         if(word[x].equals(inp.toUpperCase())){
                             progress[x] = word[x];
                         }
                     }
-                }else if(!(Arrays.asList(invalid).contains(inp.substring(0,1).toUpperCase()))){
+                }else if(!(Arrays.asList(invalid).contains(inp.substring(0,1).toUpperCase()))){  // Checking if the first letter is WRONG
                     String[] old = invalid;
                     for(int x = 0;x < invalid.length;x++){
                         if(invalid[x].equals("")){
@@ -86,13 +95,21 @@ class index {
         }
         
         if(lost){
-        log("\n\n\nYou lost! the word was " + rdm.toLowerCase() + "\n");
+            clear();
+            system.log(cls.red);
+            system.printArray(invalid);
+            system.ln(cls.red + " - " + "0 tries left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
+            system.printArray(progress);
+            log("\n\n\nYou lost! the word was " + rdm.toLowerCase() + "\n");
         }else{
             clear();
-            for(int x = 0;x < invalid.length;x++){
-                if(!(invalid[x] == "")){
-                    log(invalid[x]);
-                }
+            log(cls.red);
+            system.printArray(invalid);
+            log(cls.reset);
+            if(failed == 9){
+                system.ln(cls.red + " - " + (10 - failed) + " try left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
+            } else{
+                system.ln(cls.red + " - " + (10 - failed) + " tries left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
             }
             log("\n - \n" + rdm + "\n");
             log("\n\n\nYou win!\n");
