@@ -18,12 +18,17 @@ class index {
         System.out.print(msg);
     }
     public static void main(String[] args) throws InterruptedException, IOException{
+        clear();
         String[] words = {    "ALGORITHM",    "BINARY",    "CACHE",    "CODE",    "COMPILER",    "CONDITIONAL",    "DEBUGGING",    "DECLARATION",    "ENCRYPTION",    "EXCEPTION",    "FUNCTION",    "HASH",    "INTEGER",    "INTERPRETER",    "ITERATION",    "KEYWORD",    "LOOP",    "METHOD",    "OBJECT",    "OPERATOR",    "PARAMETER",    "POINTER",    "RECURSION",    "REFERENCE",    "REGEX",    "SCRIPT",    "SORTING",    "STRING",    "SYNTAX",    "THREAD",    "TYPE",    "VARIABLE",    "VIRTUAL",    "ABSTRACT",    "BOOLEAN",    "BREAK",    "CLASS",    "CONSTANT",    "DATA",    "DYNAMIC",    "ENCAPSULATION",    "EVENT",    "FINALLY",    "GARBAGE",    "HANDLER",    "INHERITANCE",    "INTERFACE",    "LAMBDA",    "LIBRARY",    "MESSAGE",    "NAMESPACE",    "NULL",    "OVERRIDE",    "PRIVATE",    "PROTECTED",    "PUBLIC",    "QUEUE",    "RECORD",    "REENTRANT",    "RESOURCE",    "RETURN",    "STACK",    "STATIC",    "STRUCTURE",    "SWITCH",    "TEMPLATE",    "TRY",    "TUPLE",    "TYPE",    "UNION",    "VALUE",    "VECTOR",    "VOID",    "VOLATILE",    "WHILE",    "YIELD",    "ARRAY",    "BLOCK",    "BYTE",    "CHAR",    "CONTEXT",    "DELEGATE",    "DOUBLE",    "ENUM",    "FLOAT",    "GOTO",    "INLINE",    "LONG",    "POOL",    "SHORT",    "SINGLE",    "STREAM",    "SYNC",    "TASK",    "TRACE",    "TYPE",    "UNICODE",    "USHORT",    "UTF8",    "VOID"};
         String rdm = choice(words);
         String[] progress = new String[rdm.length()];
         String[] invalid = { "", "", "", "", "", "", "", "", "", ""};
         for (int x = 0;x < rdm.length();x++){
-            progress[x] = "_";
+            if(rdm.substring(x, x + 1).equals("8")){
+                progress[x] = "8";
+            } else{
+                progress[x] = "_";
+            }
         }
         Scanner sc = new Scanner(System.in);
         log("Press enter to start");
@@ -43,10 +48,10 @@ class index {
                     failed++;
                 }
             }
-            if(failed == 9){
-                system.ln(cls.red + " - " + (10 - failed) + " try left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
+            if(failed == invalid.length - 1){
+                system.ln(cls.red + " - " + (invalid.length - failed) + " try left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
             } else{
-                system.ln(cls.red + " - " + (10 - failed) + " tries left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
+                system.ln(cls.red + " - " + (invalid.length - failed) + " tries left" + "\n" + cls.green + hints + " / " + most + " hints left" + cls.reset);
             }
             log("\n - \n");
             system.printArray(progress);
@@ -93,7 +98,6 @@ class index {
                 }
             }
         }
-        
         if(lost){
             clear();
             system.log(cls.red);
@@ -116,4 +120,4 @@ class index {
         }
         sc.close();
     }
-}
+    }
